@@ -13,49 +13,10 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 */
-
 import * as jsome from 'jsome';
 import { Engine } from 'json-rules-engine';
+import Config from './config';
 import IMAPContainer from './imapcontainer';
-
-const rules = [
-    {
-        conditions: {
-            any: [
-                {
-                    fact: 'msg',
-                    operator: 'equal',
-                    path: '.envelope.sender[0].address',
-                    value: 'email_relay@freecycle.org',
-                },
-            ],
-        },
-        event: {  // define the event to fire when the conditions evaluate truthy
-            params: {
-                dest: 'freecycle',
-            },
-            type: 'move',
-        },
-    },
-    {
-        conditions: {
-            any: [
-                {
-                    fact: 'msg',
-                    operator: 'equal',
-                    path: '.envelope.sender[0].address',
-                    value: 'weewx-user@googlegroups.com',
-                },
-            ],
-        },
-        event: {  // define the event to fire when the conditions evaluate truthy
-            params: {
-                dest: 'Weewx',
-            },
-            type: 'move',
-        },
-    },
-];
 
 // initialize with options
 const options = {
@@ -65,6 +26,7 @@ const options = {
 const imap = new IMAPContainer();
 
 const mailEventFn = async (msg) => {
+    const rules = Config.getConfig().getRulesJson();
     const engine = new Engine(rules, options);
     engine.on('success', async (event) => {
 

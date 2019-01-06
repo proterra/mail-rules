@@ -18,8 +18,10 @@
   "license": "ISC",
   "dependencies": {
     "emailjs-imap-client": "^3.0.7",
+    "env-var": "^3.4.2",
     "jsome": "^2.5.0",
-    "json-rules-engine": "^2.3.2"
+    "json-rules-engine": "^2.3.2",
+    "typescript": "^3.2.2"
   },
   "devDependencies": {
     "@types/chai": "^4.1.4",
@@ -33,7 +35,6 @@
     "sinon": "^6.0.0",
     "sinon-chai": "^3.2.0",
     "ts-node": "^7.0.0",
-    "tslint": "^5.10.0",
-    "typescript": "^2.9.2"
+    "tslint": "^5.10.0"
   }
 }
