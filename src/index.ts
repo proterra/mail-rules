@@ -17,7 +17,7 @@ import * as jsome from 'jsome';
 import { Engine } from 'json-rules-engine';
 import Config from './config';
 import IMAPContainer from './imapcontainer';
-
+const cfg = Config.getConfig();
 // initialize with options
 const options = {
     allowUndefinedFacts: true,
@@ -26,7 +26,7 @@ const options = {
 const imap = new IMAPContainer();
 
 const mailEventFn = async (msg) => {
-    const rules = Config.getConfig().getRulesJson();
+    const rules = cfg.getRulesJson();
     const engine = new Engine(rules, options);
     engine.on('success', async (event) => {
 

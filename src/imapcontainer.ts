@@ -32,7 +32,7 @@ export default class IMAPContainer extends EventEmitter {
         super();
         const cfg = Config.getConfig();
 
-        this.client = new ImapClient(cfg.getServer(), 993, {
+        this.client = new ImapClient(cfg.getServer(), cfg.$port, {
             auth: {
                 pass: cfg.getPassword(),
                 user: cfg.getUserid(),
