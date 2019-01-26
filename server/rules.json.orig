@@ -1,0 +1,38 @@
+[
+    {
+        "conditions": {
+            "any": [
+                {
+                    "fact": "msg",
+                    "operator": "equal",
+                    "path": ".envelope.sender[0].address",
+                    "value": "email_relay@freecycle.org"
+                }
+            ]
+        },
+        "event": {
+            "params": {
+                "dest": "freecycle"
+            },
+            "type": "move"
+        }
+    },
+    {
+        "conditions": {
+            "any": [
+                {
+                    "fact": "msg",
+                    "operator": "equal",
+                    "path": ".envelope.sender[0].address",
+                    "value": "weewx-user@googlegroups.com"
+                }
+            ]
+        },
+        "event": {
+            "params": {
+                "dest": "Weewx"
+            },
+            "type": "move"
+        }
+    }
+]

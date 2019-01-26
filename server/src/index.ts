@@ -15,8 +15,13 @@
 */
 import * as jsome from 'jsome';
 import { Engine } from 'json-rules-engine';
+import Cloudantcontainer from './cloudantcontainer';
 import Config from './config';
 import IMAPContainer from './imapcontainer';
+import RESTContainer from './server';
+
+const cc = new Cloudantcontainer();
+
 const cfg = Config.getConfig();
 // initialize with options
 const options = {
@@ -24,16 +29,17 @@ const options = {
 };
 
 const imap = new IMAPContainer();
+const rest = new RESTContainer();
 
 const mailEventFn = async (msg) => {
     const rules = cfg.getRulesJson();
     const engine = new Engine(rules, options);
     engine.on('success', async (event) => {
-
         const action = event.type;
         if (action === 'move') {
             const destination = event.params.dest;
             await imap.move(msg, destination);
+            await cc.addEmail(msg, action);
         } else {
             // unknown
             throw new Error(`Unknown action ${action}`);
@@ -47,4 +53,9 @@ const mailEventFn = async (msg) => {
 imap.on('exists', mailEventFn);
 imap.on('fetch', mailEventFn);
 
-imap.connect('INBOX');
+rest.startServer().then(() => {
+    imap.connect('INBOX');
+}).catch((e) => {
+    console.log(e);
+    process.exit(1);
+});
