@@ -28,7 +28,7 @@ export default class CloudantContainer extends EventEmitter {
         const cfg = Config.getConfig();
         const dbName = 'mail-rules';
         // tslint:disable-next-line:max-line-length
-        const url = 'https://aad9d4f2-79bf-4a1b-a8c3-6e50b9fb6913-bluemix:572e5fd75834d22c0f3566b225e6c5009b49ab5c0308212498ad94ba06b9c7c1@aad9d4f2-79bf-4a1b-a8c3-6e50b9fb6913-bluemix.cloudantnosqldb.appdomain.cloud';
+        const url = cfg.$cloudantUrl;
         this.cloudant = Cloudant(url);
         this.mydb = this.cloudant.db.use(dbName);
     }
@@ -36,6 +36,5 @@ export default class CloudantContainer extends EventEmitter {
     public async addEmail(email, action) {
         const id = `${email.uid}`;
         const body = await this.mydb.insert({ email, action }, id);
-        console.log(body);
     }
 }
