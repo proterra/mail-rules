@@ -17,8 +17,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cloudant/cloudant": "^3.0.2",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "emailjs-imap-client": "^3.0.7",
     "env-var": "^3.4.2",
+    "express": "^4.16.4",
     "jsome": "^2.5.0",
     "json-rules-engine": "^2.3.2",
     "typescript": "^3.2.2"

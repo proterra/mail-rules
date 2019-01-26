@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+export MR_SERVER=
+export MR_PORT=993
+export MR_USERID=fred@example.com
+export MR_PASSWORD=passw0rd
+export MR_RULES_FILE="${DIR}/rules.json"
+export TODOIST_TOKEN=xxxxxxxxxxxxxx
+
+node "${DIR}/dist/index.js"

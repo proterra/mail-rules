@@ -18,7 +18,24 @@ export default class Config {
     private userid;
     private password;
     private rulesFile;
-    private rules;
+    private rules: object;
+
+    /**
+     * Getter $todoistToken
+     * @return {string}
+     */
+    public get $todoistToken(): string {
+        return this.todoistToken;
+    }
+
+    /**
+     * Setter $todoistToken
+     * @param {string} value
+     */
+    public set $todoistToken(value: string) {
+        this.todoistToken = value;
+    }
+    private todoistToken: string;
 
     /**
      * Getter $port
@@ -67,5 +84,13 @@ export default class Config {
 
     public getRulesJson() {
         return this.rules;
+    }
+
+    public setRulesJsonString(rules: string) {
+        // parse the string to make sure it is validjson
+        // should also validated as well
+        // TODO Need schema
+        this.rules = JSON.parse(rules);
+        fs.writeFileSync(this.rulesFile, JSON.stringify(this.rules), 'utf8');
     }
 }
